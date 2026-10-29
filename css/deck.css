@@ -1,0 +1,745 @@
+/*
+ * Тема презентации. Собственных цветов, радиусов и отступов здесь нет —
+ * всё берётся из design-tokens.css, сгенерированного из документа релиза.
+ * Единственная добавка — масштаб: токены типографики рассчитаны на интерфейс,
+ * а слайд смотрят с пяти метров.
+ */
+
+:root {
+	--deck-scale: 2.4;
+	--deck-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+	--deck-font-display: 'Anton', Impact, sans-serif;
+
+	--deck-text-hero: calc(var(--base-font-size-800) * 2.6);
+	--deck-text-title: calc(var(--base-font-size-800) * 1.7);
+	--deck-text-lead: calc(var(--base-font-size-500) * 1.7);
+	--deck-text-body: calc(var(--base-font-size-400) * 1.65);
+	--deck-text-small: calc(var(--base-font-size-300) * 1.6);
+	--deck-text-metric: calc(var(--base-font-size-800) * 2.2);
+
+	/* отступы системы рассчитаны на интерфейс, слайду нужен воздух */
+	--deck-gap-section: calc(var(--spacing-gap-2xl) * 1.5);
+	--deck-gap-row: calc(var(--spacing-gap-3xl) * 1.1);
+	--deck-gap-cards: calc(var(--spacing-gap-xl) * 1.1);
+}
+
+/* ---------- полотно ---------- */
+
+.reveal-viewport {
+	background: var(--bg-screen-primary);
+	background-image:
+		radial-gradient(760px 420px at 12% -8%, var(--accent-brand-pale), transparent 65%),
+		radial-gradient(620px 360px at 92% 108%, var(--accent-info-pale), transparent 65%);
+}
+
+.reveal {
+	font-family: var(--base-font-family-100), system-ui, sans-serif;
+	font-size: var(--deck-text-body);
+	color: var(--text-primary);
+	letter-spacing: -0.01em;
+}
+
+.reveal .slides {
+	text-align: left;
+}
+
+.reveal .slides section {
+	height: 100%;
+	display: flex !important;
+	flex-direction: column;
+	justify-content: center;
+	gap: var(--deck-gap-section);
+}
+
+.reveal .slides section.stack {
+	display: block !important;
+}
+
+.reveal .slides section.center {
+	align-items: center;
+}
+
+/* ---------- типографика ---------- */
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+	font-family: inherit;
+	text-transform: none;
+	letter-spacing: -0.03em;
+	line-height: 1.06;
+	margin: 0;
+	text-shadow: none;
+	color: var(--text-primary);
+	text-wrap: balance;
+}
+
+.reveal h1 {
+	font-size: var(--deck-text-hero);
+	font-weight: 700;
+}
+
+.reveal h2 {
+	font-size: var(--deck-text-title);
+	font-weight: 700;
+}
+
+.reveal h3 {
+	font-size: calc(var(--base-font-size-700) * 1.5);
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+.reveal p {
+	margin: 0;
+	line-height: 1.45;
+	text-wrap: pretty;
+}
+
+.reveal a {
+	color: var(--text-link);
+	text-decoration: none;
+	border-bottom: 2px solid var(--accent-brand-muted);
+}
+
+.reveal strong,
+.reveal b {
+	font-weight: 700;
+	color: var(--text-primary);
+}
+
+.reveal section img {
+	border: none;
+	background: transparent;
+	box-shadow: none;
+	margin: 0;
+}
+
+.eyebrow {
+	font-family: var(--deck-font-mono);
+	font-size: var(--deck-text-small);
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--text-accent-brand);
+}
+
+.lead {
+	font-size: var(--deck-text-lead);
+	color: var(--text-secondary);
+	max-width: 20em;
+	text-wrap: pretty;
+}
+
+.statement {
+	font-size: calc(var(--base-font-size-800) * 2.1);
+	font-weight: 700;
+	line-height: 1.1;
+	letter-spacing: -0.035em;
+	max-width: 16em;
+	text-wrap: balance;
+}
+
+.note {
+	font-size: var(--deck-text-small);
+	color: var(--text-tertiary);
+	line-height: 1.5;
+	max-width: 44em;
+	text-wrap: pretty;
+}
+
+.mono {
+	font-family: var(--deck-font-mono);
+	font-size: 0.94em;
+}
+
+.hl {
+	color: var(--text-accent-brand);
+}
+
+.ok {
+	color: var(--text-success);
+}
+
+.no {
+	color: var(--text-error);
+}
+
+/* ---------- сетка ---------- */
+
+.row {
+	display: flex;
+	gap: var(--deck-gap-row);
+	align-items: stretch;
+}
+
+.row--center {
+	align-items: center;
+}
+
+.col {
+	display: flex;
+	flex-direction: column;
+	gap: var(--deck-gap-cards);
+	flex: 1;
+	min-width: 0;
+}
+
+.col--wide {
+	flex: 1.25;
+}
+
+.col--narrow {
+	flex: 0.85;
+}
+
+/* ---------- карточки ---------- */
+
+.cards {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--deck-gap-cards);
+	align-items: stretch;
+}
+
+/* три и меньше — в одну строку, им ширины хватает */
+.cards--row {
+	display: flex;
+}
+
+.card {
+	min-width: 0;
+	background: var(--bg-card-primary);
+	border: 1px solid var(--line-component-primary);
+	border-radius: var(--radius-card);
+	padding: calc(var(--spacing-inset-xl) * 1.6);
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-gap-m);
+}
+
+.card--brand {
+	background: var(--accent-brand-pale);
+	border-color: var(--accent-brand-muted);
+}
+
+.card__num {
+	font-family: var(--deck-font-mono);
+	font-size: var(--deck-text-small);
+	color: var(--text-accent-brand);
+}
+
+.card h3 {
+	font-size: calc(var(--base-font-size-600) * 1.5);
+	text-wrap: balance;
+	overflow-wrap: normal;
+}
+
+.card p {
+	font-size: calc(var(--base-font-size-300) * 1.55);
+	color: var(--text-secondary);
+	line-height: 1.45;
+}
+
+/* ---------- цифры ---------- */
+
+.metrics {
+	display: flex;
+	gap: calc(var(--spacing-gap-3xl) * 1.4);
+	flex-wrap: wrap;
+}
+
+.metric__value {
+	font-family: var(--deck-font-mono);
+	font-size: var(--deck-text-metric);
+	font-weight: 500;
+	color: var(--text-primary);
+	line-height: 1;
+	letter-spacing: -0.04em;
+}
+
+.metric__value span {
+	color: var(--text-accent-brand);
+}
+
+.metric__label {
+	font-size: var(--deck-text-small);
+	color: var(--text-tertiary);
+	margin-top: var(--spacing-gap-m);
+	max-width: 11em;
+	line-height: 1.4;
+}
+
+/* ---------- конвейер ---------- */
+
+.pipeline {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-gap-m);
+}
+
+.step {
+	background: var(--bg-card-primary);
+	border: 1px solid var(--line-component-primary);
+	border-radius: var(--radius-component-m);
+	padding: var(--spacing-inset-m) var(--spacing-inset-xl);
+	font-size: var(--deck-text-small);
+	white-space: nowrap;
+}
+
+.step--brand {
+	border-color: var(--accent-brand);
+	background: var(--accent-brand-pale);
+	color: var(--text-accent-brand);
+	font-weight: 600;
+}
+
+.arrow {
+	color: var(--accent-brand);
+}
+
+/* ---------- плашки токенов ---------- */
+
+.swatches {
+	display: flex;
+	gap: var(--spacing-gap-l);
+}
+
+.swatch {
+	flex: 1;
+	min-width: 0;
+	border-radius: var(--radius-component-l);
+	padding: var(--spacing-inset-l);
+	min-height: 112px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	gap: var(--spacing-gap-2xs);
+	border: 1px solid var(--line-component-primary);
+}
+
+.swatch span {
+	font-family: var(--deck-font-mono);
+	font-size: calc(var(--base-font-size-200) * 1.3);
+	line-height: 1.25;
+}
+
+.swatch small {
+	font-family: var(--deck-font-mono);
+	font-size: calc(var(--base-font-size-100) * 1.45);
+	opacity: .75;
+	white-space: nowrap;
+}
+
+.swatch--light span,
+.swatch--light small {
+	color: var(--text-primary);
+}
+
+.swatch--dark span,
+.swatch--dark small {
+	color: var(--text-on-brand);
+}
+
+/* ---------- каналы ---------- */
+
+.chan {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-gap-2xs);
+	background: var(--bg-card-primary);
+	border: 1px solid var(--line-component-primary);
+	border-radius: var(--radius-card);
+	padding: calc(var(--spacing-inset-xl) * 1.2) calc(var(--spacing-inset-xl) * 1.4);
+}
+
+.chan__top {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--spacing-gap-l);
+}
+
+.chan__name {
+	font-family: var(--deck-font-mono);
+	font-size: calc(var(--base-font-size-500) * 1.5);
+	color: var(--text-accent-brand);
+}
+
+.chan__ver {
+	font-family: var(--deck-font-mono);
+	font-size: var(--deck-text-small);
+	color: var(--text-primary);
+}
+
+.chan__ver--empty {
+	color: var(--text-tertiary);
+}
+
+.chan p.chan__desc {
+	font-size: var(--deck-text-small);
+	color: var(--text-secondary);
+	line-height: 1.4;
+}
+
+/* ---------- таблицы ---------- */
+
+.reveal table {
+	width: 100%;
+	margin: 0;
+	border-collapse: collapse;
+	table-layout: auto;
+	font-size: var(--deck-text-small);
+}
+
+.reveal table th {
+	text-align: left;
+	font-weight: 500;
+	color: var(--text-tertiary);
+	font-size: 0.86em;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	border: none;
+	border-bottom: 1px solid var(--line-component-primary);
+	padding: 0 var(--spacing-inset-m) var(--spacing-inset-m) 0;
+}
+
+.reveal table td {
+	border: none;
+	border-bottom: 1px solid var(--line-divider-web);
+	padding: var(--spacing-inset-l) var(--spacing-inset-m) var(--spacing-inset-l) 0;
+	color: var(--text-secondary);
+	vertical-align: top;
+}
+
+.reveal table td:first-child,
+.reveal table th:first-child {
+	color: var(--text-primary);
+	font-weight: 600;
+	white-space: nowrap;
+	padding-right: calc(var(--spacing-inset-xl) * 1.6);
+}
+
+.reveal table th:first-child {
+	color: var(--text-tertiary);
+	font-weight: 500;
+}
+
+.reveal table td.num {
+	text-align: right;
+	font-family: var(--deck-font-mono);
+	color: var(--text-primary);
+	white-space: nowrap;
+}
+
+/* ---------- код ---------- */
+
+.reveal pre {
+	width: 100%;
+	box-shadow: none;
+	margin: 0;
+	padding: calc(var(--spacing-inset-xl) * 1.15) calc(var(--spacing-inset-xl) * 1.3);
+	box-sizing: border-box;
+	background: var(--bg-card-primary);
+	border: 1px solid var(--line-component-primary);
+	border-left: 4px solid var(--accent-brand);
+	border-radius: var(--radius-component-l);
+	font-size: calc(var(--base-font-size-300) * 1.25);
+	line-height: 1.6;
+	overflow-x: auto;
+}
+
+.reveal pre code {
+	display: block;
+	background: none;
+	border: 0;
+	border-radius: 0;
+	padding: 0;
+	margin: 0;
+	max-height: none;
+	overflow: visible;
+	font-family: var(--deck-font-mono);
+	line-height: 1.6;
+	color: var(--text-primary);
+}
+
+.reveal code:not(pre code) {
+	font-family: var(--deck-font-mono);
+	font-size: 0.92em;
+	background: var(--accent-brand-pale);
+	border: 1px solid var(--accent-brand-muted);
+	border-radius: var(--radius-component-xs);
+	padding: 2px 8px;
+	color: var(--text-accent-brand);
+	white-space: nowrap;
+}
+
+/* однострочная команда: свой блок, без причуд reveal вокруг pre */
+.command {
+	font-family: var(--deck-font-mono);
+	font-size: calc(var(--base-font-size-400) * 1.25);
+	background: var(--bg-card-primary);
+	border: 1px solid var(--line-component-primary);
+	border-left: 4px solid var(--accent-brand);
+	border-radius: var(--radius-component-l);
+	padding: calc(var(--spacing-inset-xl) * 1.1) calc(var(--spacing-inset-xl) * 1.4);
+	color: var(--text-primary);
+	white-space: nowrap;
+	overflow-x: auto;
+}
+
+/* ---------- списки ---------- */
+
+.reveal ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-gap-l);
+}
+
+.reveal ul li {
+	position: relative;
+	padding-left: calc(var(--spacing-inset-xl) * 1.4);
+	font-size: var(--deck-text-body);
+	line-height: 1.42;
+	color: var(--text-secondary);
+	text-wrap: pretty;
+}
+
+.reveal ul li::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0.62em;
+	width: 14px;
+	height: 3px;
+	border-radius: var(--radius-pill);
+	background: var(--accent-brand);
+}
+
+.reveal ul li b {
+	color: var(--text-primary);
+}
+
+.reveal ol {
+	margin: 0;
+	padding-left: 1.3em;
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-gap-l);
+}
+
+.reveal ol li {
+	font-size: var(--deck-text-body);
+	line-height: 1.42;
+	color: var(--text-secondary);
+	text-wrap: pretty;
+}
+
+/* ---------- мемы ---------- */
+
+.meme {
+	position: relative;
+	display: block;
+	width: fit-content;
+	max-width: 100%;
+	border-radius: var(--radius-card);
+	overflow: hidden;
+	line-height: 0;
+	box-shadow: 0 18px 48px rgba(16, 16, 16, .18);
+}
+
+.meme img {
+	display: block;
+	max-height: 520px;
+	max-width: 100%;
+	width: auto;
+}
+
+.row .meme {
+	flex: 0 1 auto;
+	align-self: center;
+	max-width: 48%;
+}
+
+.row .meme img {
+	max-height: 420px;
+	max-width: 100%;
+}
+
+/* рядом с мемом колонке текста остаётся половина слайда — кегль поменьше */
+.row .col .lead {
+	font-size: var(--deck-text-body);
+	max-width: none;
+}
+
+.meme figcaption {
+	position: absolute;
+	font-family: var(--deck-font-display);
+	font-size: 24px;
+	line-height: 1.12;
+	color: #ffffff;
+	text-transform: uppercase;
+	text-align: center;
+	-webkit-text-stroke: 2px #000000;
+	paint-order: stroke fill;
+	padding: 0 8px;
+	text-wrap: balance;
+}
+
+.meme figcaption.plain {
+	color: #10131a;
+	-webkit-text-stroke: 0;
+	text-transform: none;
+	font-family: var(--base-font-family-100), sans-serif;
+	font-weight: 700;
+	text-align: left;
+	font-size: 21px;
+	line-height: 1.3;
+	text-wrap: pretty;
+}
+
+.cap-tr {
+	top: 9%;
+	right: 0%;
+	width: 45%;
+}
+
+.cap-br {
+	bottom: 12%;
+	right: 0%;
+	width: 45%;
+}
+
+.cap-top {
+	top: 3%;
+	left: 0;
+	width: 100%;
+}
+
+.cap-bottom {
+	bottom: 3%;
+	left: 0;
+	width: 100%;
+}
+
+.cap-tl {
+	top: 4%;
+	left: 0;
+	width: 50%;
+}
+
+.cap-tr2 {
+	top: 4%;
+	right: 0;
+	width: 50%;
+}
+
+.cap-l {
+	bottom: 4%;
+	left: 0;
+	width: 50%;
+}
+
+.cap-r {
+	bottom: 4%;
+	right: 0;
+	width: 50%;
+}
+
+/* три панели panik: каждая подпись живёт в своей трети и центрируется в ней,
+   поэтому длина текста больше не выталкивает строки за границу панели */
+.cap-p1,
+.cap-p2,
+.cap-p3 {
+	left: 3%;
+	width: 42%;
+	height: 33.33%;
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+	line-height: 1.2;
+}
+
+.cap-p1 {
+	top: 0;
+}
+
+.cap-p2 {
+	top: 33.33%;
+}
+
+.cap-p3 {
+	top: 66.66%;
+}
+
+/* ---------- служебное ---------- */
+
+.reveal .progress {
+	color: var(--accent-brand);
+	height: 4px;
+}
+
+.reveal .slide-number {
+	font-family: var(--deck-font-mono);
+	background: transparent;
+	color: var(--text-tertiary);
+	font-size: 16px;
+	right: auto;
+	left: 24px;
+	bottom: 18px;
+}
+
+.reveal .controls {
+	color: var(--accent-brand);
+}
+
+.reveal .fragment.visible {
+	opacity: 1;
+}
+
+/* ---------- подсветка кода на наших токенах ---------- */
+
+.reveal .hljs {
+	background: transparent;
+	color: var(--text-primary);
+}
+
+.reveal .hljs-comment,
+.reveal .hljs-quote {
+	color: var(--text-tertiary);
+	font-style: italic;
+}
+
+.reveal .hljs-keyword,
+.reveal .hljs-selector-tag,
+.reveal .hljs-built_in,
+.reveal .hljs-literal {
+	color: var(--text-accent-brand);
+	font-weight: 600;
+}
+
+.reveal .hljs-string,
+.reveal .hljs-attr,
+.reveal .hljs-attribute {
+	color: var(--text-success);
+}
+
+.reveal .hljs-number,
+.reveal .hljs-symbol,
+.reveal .hljs-bullet {
+	color: var(--text-info);
+}
+
+.reveal .hljs-title,
+.reveal .hljs-section,
+.reveal .hljs-name {
+	color: var(--text-primary);
+	font-weight: 600;
+}
+
+.reveal .hljs-meta,
+.reveal .hljs-params {
+	color: var(--text-secondary);
+}
